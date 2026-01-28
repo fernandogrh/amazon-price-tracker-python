@@ -1,3 +1,11 @@
+![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python&logoColor=white)
+![Requests](https://img.shields.io/badge/Requests-HTTP-blue)
+![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-Web%20Scraping-brightgreen)
+![SMTP](https://img.shields.io/badge/SMTP-Email%20Alerts-yellow)
+![dotenv](https://img.shields.io/badge/dotenv-Environment%20Variables-lightgrey)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 # 🚀 Amazon Price Tracker & Email Alert – Python Automation Project
 
 ### A Python automation script that tracks Amazon product prices and sends you an email alert when the price drops below your target. Built to practice clean Python architecture, web scraping, security best practices, and automation workflows.
