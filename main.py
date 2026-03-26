@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import smtplib
 import requests
 import os
+import sys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,34 +17,48 @@ try:
     response.raise_for_status()
 except requests.exceptions.RequestException as e:
     print(f"Request error: {e}")
-    exit()
+    sys.exit()
 try:
     website = BeautifulSoup(response.text, "html.parser")
-    str_price = website.find(name="span", class_="a-offscreen").getText()
-    float_price = float(str_price.replace("CHF", "").replace(",", ".").strip())
-    product_name = website.find(name="span", id="productTitle").getText().strip()
-except AttributeError:
-    print("Parsing error: Amazon page structure may have changed.")
-    exit()
+    price_tag = website.find(name="span", class_="a-offscreen")
+    title_tag = website.find(name="span", id="productTitle")
+    if price_tag is None or title_tag is None:
+        raise AttributeError
+    str_price = price_tag.getText().strip()
+    cleaned_price = (str_price.replace("CHF", "").replace("€", "").replace("$", "").replace(",", ".").strip())
+    float_price = float(cleaned_price)
+    product_name = title_tag.getText().strip()
+
+except (AttributeError, ValueError):
+    print("Parsing error: Amazon page structure or price format may have changed.")
+    sys.exit()
 
 target_price = 95
 
 if float_price < target_price:
     message = f"The price of {product_name} is {str_price}, below your target price, Buy it now!"
+
+    smtp_address = os.getenv("SMTP_ADDRESS")
+    email_address = os.getenv("EMAIL_ADDRESS")
+    email_password = os.getenv("EMAIL_PASSWORD")
+    if not all([smtp_address, email_address, email_password]):
+        print("Missing one or more email environment variables.")
+        sys.exit()
     try:
-        with smtplib.SMTP(os.getenv("SMTP_ADDRESS"), port=587) as connection:
+        with smtplib.SMTP(smtp_address, port=587) as connection:
             connection.starttls()
-            connection.login(os.getenv("EMAIL_ADDRESS"), os.getenv("EMAIL_PASSWORD")),
+            connection.login(email_address, email_password)
             connection.sendmail(
-                from_addr=os.getenv("EMAIL_ADDRESS"),
-                to_addrs =os.getenv("EMAIL_ADDRESS"),
+                from_addr=email_address,
+                to_addrs =email_address,
                 msg = f"Subject: Amazon Price Alert\n\n{message}\n{url}".encode("utf-8")
             )
             print("Email alert sent successfully.")
     except smtplib.SMTPAuthenticationError as e:
         print(f"Authentication error: {e}")
-
     except smtplib.SMTPException as e:
         print(f"Email sending failed: {e}")
+else:
+    print(f"No alert sent. Current price is {str_price}.")
 
 

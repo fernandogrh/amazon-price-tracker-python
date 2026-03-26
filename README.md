@@ -1,6 +1,16 @@
 # 🚀 Amazon Price Tracker & Email Alert – Python Automation Project
 
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![Requests](https://img.shields.io/badge/HTTP-Requests-blue)
+![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-Web%20Scraping-brightgreen)
+![SMTP](https://img.shields.io/badge/SMTP-Email%20Alerts-yellow)
+![dotenv](https://img.shields.io/badge/Environment-dotenv-lightgrey)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+
 ### A Python automation script that tracks Amazon product prices and sends you an email alert when the price drops below your target. Built to practice clean Python architecture, web scraping, security best practices, and automation workflows.
+> ⚠️ Note: Amazon uses dynamic page structures and anti-bot protections, so scraping results may vary depending on the product or region.
 
 ## ⚙️ What It Does
 
@@ -12,7 +22,7 @@
 
 - 🔐 Secures credentials using .env
 
-- ⚠️ Handles network, parsing, and email errors safely
+- ⚠️ Robust error handling for network, parsing, and email operations
 
 ## 🛠 Tech Stack
 
@@ -33,7 +43,8 @@
     ├── main.py
     ├── .env.example
     ├── .gitignore
-    └── README.md
+    ├── README.md
+    └── requirements.txt
 
 ## 🚀 How It Works (Flow)
     Fetch Amazon product page
@@ -42,7 +53,7 @@
             ↓
     Compare with target price
             ↓
-         If lower → Send email alert
+    If lower → Send email alert
 
 ## 🔐 Security & Best Practices
 
@@ -62,7 +73,10 @@ Example .env format:
 .env is excluded from GitHub using .gitignore, keeping secrets safe.
 
 ## ▶️ How To Run
-    pip install requests beautifulsoup4 python-dotenv
+    
+    git clone https://github.com/fernandogrh/amazon-price-tracker-python.git
+    cd amazon-price-tracker-python
+    pip install -r requirements.txt
     python main.py
 
 ## 🎯 What This Demonstrates
@@ -81,13 +95,15 @@ Example .env format:
 
 ## 🧩 Future Improvements
 
-- Track multiple products
+This project can be extended further with:
+
+- Track multiple products simultaneously
 
 - Add Telegram / WhatsApp alerts
 
-- Schedule background execution
+- Schedule automated execution
 
-- Docker deployment
+- Containerize with Docker for deployment
 
 ## 👨‍💻 Author
 
