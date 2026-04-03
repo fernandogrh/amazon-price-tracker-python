@@ -9,7 +9,8 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 
-### A Python automation script that tracks Amazon product prices and sends you an email alert when the price drops below your target. Built to practice clean Python architecture, web scraping, security best practices, and automation workflows.
+### Web scraping automation that tracks product prices and triggers alerts on price changes.
+
 > ⚠️ Note: Amazon uses dynamic page structures and anti-bot protections, so scraping results may vary depending on the product or region.
 
 ## ⚙️ What It Does
